@@ -1,0 +1,12 @@
+---
+#
+# Git initial config.
+#
+
+- name: Configure GIT user name
+  command: 
+    git config --global user.name {{ common_git_user_name }}
+
+- name: Configure GIT user email
+  command: 
+    git config --global user.email {{ common_git_user_email }}

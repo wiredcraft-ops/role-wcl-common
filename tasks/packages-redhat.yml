@@ -1,0 +1,22 @@
+---
+#
+# Script handling package installation for RedHat / CentOS.
+#
+
+- name: Update system
+  yum:
+    update_cache=yes
+    name=*
+    state=latest
+
+- name: Enable EPEL repository
+  yum:
+    name=epel-release
+    state=present
+
+- name: Add required binaries
+  yum:
+    name={{ item }}
+    state=present
+  with_items:
+    "{{ common_packages_redhat }}"

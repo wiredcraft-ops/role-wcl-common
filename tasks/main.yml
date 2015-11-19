@@ -1,0 +1,13 @@
+---
+#
+# Main tasks, having all sub tasks to be included.
+#
+
+- name: Set the hostname
+  hostname:
+    name={{ inventory_hostname }}
+
+- include: packages.yml
+- include: users.yml
+- include: kernel.yml
+- include: git.yml

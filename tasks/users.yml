@@ -1,0 +1,40 @@
+---
+#
+# Users management
+#
+
+- name: Add ssh agent line to sudoers
+  lineinfile: 
+    dest: /etc/sudoers
+    state: present
+    regexp: SSH_AUTH_SOCK
+    line: Defaults env_keep += "SSH_AUTH_SOCK"
+
+- name: Create the users
+  user:
+    name={{ item.name }}
+    state=present
+    shell=/bin/bash
+  with_items:
+    "{{ common_users | default([]) }}"
+
+- name: Add the SSH keys to the users
+  authorized_key:
+    state=present
+    user="{{ item.0.name }}"
+    key="{{ item.1 }}"
+  when: item.0.ssh
+  with_subelements:
+    - "{{ common_users | default([]) }}"
+    - "authorized"
+
+- name: Enable sudo users
+  template:
+    src=sudo_user.j2
+    dest=/etc/sudoers.d/{{ item.name }}
+    owner=root
+    group=root
+    mode=440
+  when: item.sudo
+  with_items:
+    "{{ common_users | default([]) }}"

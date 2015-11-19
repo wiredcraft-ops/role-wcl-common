@@ -1,0 +1,59 @@
+---
+#
+# Apply the limits to the linux system
+#
+
+- name: Check if SELinux exists.
+  command: getenforce > /dev/null 2>&1
+  register: getenforce_status
+  ignore_errors: yes
+
+# selinux ansible module haven't been tested on any Debian system according to ansible doc, but it works.
+- name: Change SELinux mode to permissive
+  selinux:
+    policy=default
+    state=permissive
+  when: getenforce_status.rc == 0
+
+# Limits Tunning
+- name: Add ulimit into /etc/init.d/functions 
+  lineinfile: 
+    dest=/etc/init.d/functions
+    insertafter='^export PATH'
+    line='ulimit -n 65536'
+    state=present
+  when: ansible_os_family == 'RedHat'
+
+## Haven't been tested yet.
+#- name: Add ulimit into /lib/lsb/init-functions
+#  lineinfile:
+#    dest=/lib/lsb/init-functions
+#    insertafter='^export PATH'
+#    line='ulimit -n 65536'
+#    state=present
+#  when: ansible_os_family == 'Debian'
+
+- name: Enable iptables to load the netfilter module
+  command:
+    iptables -nvL
+
+- name: Set kernel limits
+  lineinfile: 
+    dest=/etc/security/limits.conf
+    line='{{ item.0.user }} {{ item.1 }} {{ item.0.name }} {{ item.0.value }}'
+    state=present
+  with_subelements:
+    - "{{ common_limits | default([]) }}"
+    - "type"
+
+- name: Set kernel values via sysctl
+  sysctl:
+    name="{{ item.key }}"
+    value="{{ item.value }}"
+    state=present
+    reload=yes
+    sysctl_set=no
+  ignore_errors: True
+  with_dict: 
+    common_sysctl
+

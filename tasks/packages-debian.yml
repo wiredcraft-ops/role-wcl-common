@@ -1,0 +1,17 @@
+---
+#
+# Script handling package installation for Debian / Ubuntu.
+#
+
+- name: Update system
+  apt:
+    update_cache=yes
+    upgrade=yes
+    state=latest
+
+- name: Add required binaries
+  apt:
+    name={{ item }}
+    state=present
+  with_items:
+    "{{ common_packages_debian }}"

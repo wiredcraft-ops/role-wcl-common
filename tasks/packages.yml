@@ -1,0 +1,10 @@
+---
+#
+# Determine which package installation script to run according to OS types.
+#
+
+- include: packages-debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: packages-redhat.yml
+  when: ansible_os_family == 'RedHat'
