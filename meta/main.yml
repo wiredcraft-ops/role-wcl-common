@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  name: wcl-common
+  author: Wiredcraft
+  description: common deployment steps for wiredcraft
+  company: Wiredcraft
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: CentOS
+  versions:
+    - all
+  galaxy_tags:
+    - wcl
