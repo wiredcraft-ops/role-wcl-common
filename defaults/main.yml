@@ -68,3 +68,5 @@ common_sysctl:
     net.netfilter.nf_conntrack_log_invalid : 0
     net.netfilter.nf_conntrack_generic_timeout : 600
     net.netfilter.nf_conntrack_checksum : 1
+
+enable_remi_php56: false
