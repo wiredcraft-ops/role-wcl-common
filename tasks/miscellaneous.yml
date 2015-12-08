@@ -1,0 +1,9 @@
+#
+# Define which script to run according to os family
+#
+- include: miscellaneous-debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: miscellaneous-redhat.yml
+  when: ansible_os_family == 'RedHat'
+

@@ -1,0 +1,12 @@
+---
+- name: Stop firewall service
+  service:
+    name=firewalld
+    state=stopped
+  when: disable_firewall
+
+- name: Disable firewall
+  service:
+    name=firewalld
+    enable=false
+  when: disable_firewall
