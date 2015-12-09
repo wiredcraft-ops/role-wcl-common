@@ -8,5 +8,5 @@
 - name: Disable Firewall
   service:
     name=ufw
-    enable=false
+    enabled=false
   when: disable_firewall
