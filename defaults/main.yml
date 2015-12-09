@@ -8,6 +8,8 @@ common_packages_redhat:
     - atop
     - git
     - libselinux-python
+    - wget
+    - net-tools
 
 common_packages_debian:
     - htop
