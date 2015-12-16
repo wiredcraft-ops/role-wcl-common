@@ -11,4 +11,5 @@
 - include: users.yml
 - include: kernel.yml
 - include: git.yml
+- include: ssh.yml
 - include: miscellaneous.yml

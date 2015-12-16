@@ -1,0 +1,26 @@
+---
+- name: Define SSH service name
+  set_fact:
+    ssh_service=sshd
+  when: ansible_os_family == 'RedHat'
+
+- name: Define SSH service name
+  set_fact:
+    ssh_service=ssh
+  when: ansible_os_family == 'Debian'
+
+- name: Disable UseDNS in ssh config
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    line='UseDNS no'
+    regexp='UseDNS yes'
+    state=present
+  notify: restart ssh
+
+- name: Disable GSSAPIAuthentication in ssh config
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    line='GSSAPIAuthentication no'
+    regexp='GSSAPIAuthentication yes'
+    state=present
+  notify: restart ssh
