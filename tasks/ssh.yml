@@ -13,7 +13,7 @@
   lineinfile:
     dest=/etc/ssh/sshd_config
     line='UseDNS no'
-    regexp='UseDNS yes'
+    regexp='(#|)\s*UseDNS\s*'
     state=present
   notify: restart ssh
 
@@ -21,6 +21,6 @@
   lineinfile:
     dest=/etc/ssh/sshd_config
     line='GSSAPIAuthentication no'
-    regexp='GSSAPIAuthentication yes'
+    regexp='(#|)\s*GSSAPIAuthentication\s*'
     state=present
   notify: restart ssh
