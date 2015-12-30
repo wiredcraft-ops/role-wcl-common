@@ -24,3 +24,6 @@
     regexp='(#|)\s*GSSAPIAuthentication\s*'
     state=present
   notify: restart ssh
+
+- name: Check SSH config before restarting
+  shell: /usr/sbin/sshd -t
