@@ -16,3 +16,8 @@
 
 - name: Enable timezone settings
   command: "sudo dpkg-reconfigure --frontend noninteractive tzdata"
+
+- name: Start NTP Server
+  service:
+    name=ntp
+    state=started

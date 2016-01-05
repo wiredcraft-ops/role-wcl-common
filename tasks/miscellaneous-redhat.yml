@@ -13,3 +13,8 @@
 
 - name: Change the timezone
   command: timedatectl set-timezone {{ timezone }}
+
+- name: Start NTP Server
+  service:
+    name=ntpd
+    state=started
