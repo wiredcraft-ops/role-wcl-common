@@ -10,3 +10,6 @@
     name=ufw
     enabled=false
   when: disable_firewall
+
+- name: Change the timezone
+  command: echo "{{ timezone }}" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata

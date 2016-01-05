@@ -10,3 +10,6 @@
     name=firewalld
     enabled=false
   when: disable_firewall
+
+- name: Change the timezone
+  command: timedatectl set-timezone {{ timezone }}
