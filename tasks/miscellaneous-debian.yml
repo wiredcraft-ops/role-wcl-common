@@ -11,5 +11,8 @@
     enabled=false
   when: disable_firewall
 
-- name: Change the timezone
-  command: echo "{{ timezone }}" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
+- name: Set the timezone config file
+  command: "sudo sh -c \"echo '{{ timezone }}' > /etc/timezone\""
+
+- name: Enable timezone settings
+  command: "sudo dpkg-reconfigure --frontend noninteractive tzdata"
