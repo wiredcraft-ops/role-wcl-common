@@ -10,6 +10,7 @@ common_packages_redhat:
     - libselinux-python
     - wget
     - net-tools
+    - ntp
 
 common_packages_debian:
     - htop
@@ -17,6 +18,7 @@ common_packages_debian:
     - atop
     - git
     - python-selinux
+    - ntp
 
 common_users: []
 #    - name: myuser
