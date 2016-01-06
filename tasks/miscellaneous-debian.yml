@@ -11,11 +11,22 @@
     enabled=false
   when: disable_firewall
 
+- name: Check current timezone
+  shell: cat /etc/timezone
+  register: current_timezone
+
 - name: Set the timezone config file
-  command: "sh -c \"echo '{{ timezone }}' > /etc/timezone\""
+  copy:
+    content={{ timezone }}
+    dest=/etc/timezone
+    owner=root
+    group=root
+    mode=0644
+  when: current_timezone.stdout != timezone
 
 - name: Enable timezone settings
   command: "dpkg-reconfigure --frontend noninteractive tzdata"
+  when: current_timezone.stdout != timezone
 
 - name: Start NTP Server
   service:

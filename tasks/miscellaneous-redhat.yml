@@ -1,5 +1,5 @@
 ---
-- name: Stop Firewall 
+- name: Stop Firewall
   service:
     name=firewalld
     state=stopped
@@ -11,8 +11,14 @@
     enabled=false
   when: disable_firewall
 
+- name: Check current timezone
+  stat:
+    path=/etc/localtime
+  register: current_timezone
+
 - name: Change the timezone
   command: timedatectl set-timezone {{ timezone }}
+  when: timezone != "{{ current_timezone.stat.lnk_source | regex_replace('/usr/share/zoneinfo/', '')}}"
 
 - name: Start NTP Server
   service:
