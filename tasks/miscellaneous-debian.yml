@@ -12,7 +12,7 @@
   when: disable_firewall
 
 - name: Check current timezone
-  shell: cat /etc/timezone
+  command: cat /etc/timezone
   register: current_timezone
 
 - name: Set the timezone config file
