@@ -1,13 +1,8 @@
 ---
-- name: Stop Firewall
+- name: Stop and disable Firewall
   service:
     name=firewalld
     state=stopped
-  when: disable_firewall
-
-- name: Disable Firewall
-  service:
-    name=firewalld
     enabled=false
   when: disable_firewall
 
@@ -24,3 +19,11 @@
   service:
     name=ntpd
     state=started
+
+# Piece of s...
+- name: Stop and disable NetworkManager
+  service:
+    name=NetworkManager
+    state=stopped
+    enabled=false
+  when: disable_networkmanager

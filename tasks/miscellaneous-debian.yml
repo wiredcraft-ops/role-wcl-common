@@ -1,13 +1,8 @@
 ---
-- name: Stop Firewall
+- name: Stop and disable Firewall
   service:
     name=ufw
     state=stopped
-  when: disable_firewall
-
-- name: Disable Firewall
-  service:
-    name=ufw
     enabled=false
   when: disable_firewall
 

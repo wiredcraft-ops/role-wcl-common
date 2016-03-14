@@ -82,5 +82,6 @@ common_sysctl:
     # net.netfilter.nf_conntrack_checksum : 1
 
 disable_firewall: false
+disable_networkmanager: false
 
 timezone: "Asia/Shanghai"
