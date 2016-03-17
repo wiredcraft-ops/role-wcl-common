@@ -6,11 +6,27 @@
 - name: Ensure the hostname resolves (IPv4)
   lineinfile:
     dest=/etc/hosts
-    line='127.0.0.1  {{ hostname | default(inventory_hostname) }} localhost.localdomain localhost localhost4.localdomain4 localhost4'
+    line='127.0.0.1  {{ ansible_fqdn }} {{ ansible_hostname }} localhost.localdomain localhost localhost4.localdomain4 localhost4'
     regexp='127.0.0.1(.*)localhost(.*)'
+  when: ansible_fqdn != 'localhost.localdomain'
+
+- name: Ensure the hostname resolves (IPv4)
+  lineinfile:
+    dest=/etc/hosts
+    line='127.0.0.1  {{ ansible_hostname }} localhost.localdomain localhost localhost4.localdomain4 localhost4'
+    regexp='127.0.0.1(.*)localhost(.*)'
+  when: ansible_fqdn == 'localhost.localdomain'
 
 - name: Ensure the hostname resolves (IPv6)
   lineinfile:
     dest=/etc/hosts
-    line='::1  {{ hostname | default(inventory_hostname) }} localhost.localdomain localhost localhost6.localdomain6 localhost6'
+    line='::1  {{ ansible_fqdn }} {{ ansible_hostname }} localhost.localdomain localhost localhost6.localdomain6 localhost6'
     regexp='::1(.*)localhost(.*)'
+  when: ansible_fqdn != 'localhost.localdomain'
+
+- name: Ensure the hostname resolves (IPv6)
+  lineinfile:
+    dest=/etc/hosts
+    line='::1  {{ ansible_hostname }} localhost.localdomain localhost localhost6.localdomain6 localhost6'
+    regexp='::1(.*)localhost(.*)'
+  when: ansible_fqdn == 'localhost.localdomain'

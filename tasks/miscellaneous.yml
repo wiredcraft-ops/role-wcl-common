@@ -7,3 +7,10 @@
 - include: miscellaneous-redhat.yml
   when: ansible_os_family == 'RedHat'
 
+- name: Ensure proper bash history size and format
+  lineinfile:
+    line={{ item }}
+    dest=/etc/profile.d/99-bash_history.sh
+  with_items:
+    - export HISTTIMEFORMAT="{{ bash_history_format }}"
+    - export HISTFILESIZE={{ bash_history_size }}
