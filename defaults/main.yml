@@ -81,6 +81,7 @@ common_sysctl:
     # net.netfilter.nf_conntrack_generic_timeout : 600
     # net.netfilter.nf_conntrack_checksum : 1
 
+handle_firewall: false
 disable_firewall: false
 disable_networkmanager: false
 

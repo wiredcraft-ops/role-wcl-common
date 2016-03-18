@@ -4,7 +4,7 @@
     name=firewalld
     state=stopped
     enabled=false
-  when: disable_firewall
+  when: handle_firewall and disable_firewall
 
 - name: Check current timezone
   stat:
