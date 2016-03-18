@@ -11,6 +11,7 @@
   lineinfile:
     line={{ item }}
     dest=/etc/profile.d/99-bash_history.sh
+    create=yes
   with_items:
     - export HISTTIMEFORMAT="{{ bash_history_format }}"
     - export HISTFILESIZE={{ bash_history_size }}
