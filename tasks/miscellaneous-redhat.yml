@@ -19,6 +19,7 @@
   service:
     name=ntpd
     state=started
+    enabled=true
 
 # Piece of s...
 - name: Stop and disable NetworkManager
