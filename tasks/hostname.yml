@@ -22,11 +22,11 @@
     dest=/etc/hosts
     line='::1  {{ ansible_fqdn }} {{ ansible_hostname }} localhost.localdomain localhost localhost6.localdomain6 localhost6'
     regexp='::1(.*)localhost(.*)'
-  when: ansible_fqdn != 'localhost.localdomain'
+  when: ansible_fqdn != 'localhost.localdomain' and enable_ipv6
 
 - name: Ensure the hostname resolves (IPv6)
   lineinfile:
     dest=/etc/hosts
     line='::1  {{ ansible_hostname }} localhost.localdomain localhost localhost6.localdomain6 localhost6'
     regexp='::1(.*)localhost(.*)'
-  when: ansible_fqdn == 'localhost.localdomain'
+  when: ansible_fqdn == 'localhost.localdomain' and enable_ipv6

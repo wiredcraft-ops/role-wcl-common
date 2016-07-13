@@ -84,6 +84,7 @@ common_sysctl:
 handle_firewall: false
 disable_firewall: false
 disable_networkmanager: false
+enable_ipv6: true
 
 timezone: "Asia/Shanghai"
 
