@@ -20,6 +20,3 @@
     src=/swapfile
     fstype=swap
     state=present
-
-- name: Enable swap file
-  command: swapon -a
