@@ -4,6 +4,8 @@
 #
 
 - include: hostname.yml
+- include: swap.yml
+  when: enable_swap
 - include: packages.yml
 - include: users.yml
 - include: kernel.yml
