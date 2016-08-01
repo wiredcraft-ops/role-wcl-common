@@ -6,12 +6,12 @@
     get_md5=False
   register: swapfile
 
-- name: Enable swapfile
-  command: "{{ item }}"
-  with_items:
-    - fallocate -l {{ swap_size }} {{ swap_path }}
-    - mkswap {{ swap_path }}
-    - swapon {{ swap_path }}
+- name: Create swap file
+  command: fallocate -l {{ swap_size }} {{ swap_path }}
+  when: swapfile.stat.exists == False
+
+- name: Make swap file
+  command: mkswap {{ swap_path }}
   when: swapfile.stat.exists == False
 
 - name: Make sure swapfile is included in /etc/fstab
@@ -20,3 +20,6 @@
     src={{ swap_path }}
     fstype=swap
     state=present
+
+- name: Enable swap file
+  command: swapon -a
