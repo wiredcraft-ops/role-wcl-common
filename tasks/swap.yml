@@ -1,7 +1,7 @@
 ---
 - name: Check if swapfile exists
   stat:
-    path=/swapfile
+    path={{ swap_file }}
     get_checksum=False
     get_md5=False
   register: swapfile
@@ -9,14 +9,14 @@
 - name: Enable swapfile with length {{ swap_size }}
   command: "{{ item }}"
   with_items:
-    - fallocate -l {{ swap_size }} /swapfile
-    - mkswap /swapfile
-    - swapon /swapfile
+    - fallocate -l {{ swap_size }} {{ swap_file }}
+    - mkswap {{ swap_file }}
+    - swapon {{ swap_file }}
   when: swapfile.stat.exists == False
 
 - name: Make sure swapfile is included in /etc/fstab
   mount:
     name=swap
-    src=/swapfile
+    src={{ swap_file }}
     fstype=swap
     state=present

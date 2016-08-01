@@ -93,3 +93,4 @@ bash_history_format: '%Y-%m-%d %T '
 
 enable_swap: no
 swap_size: 2G
+swap_file: /swapfile
