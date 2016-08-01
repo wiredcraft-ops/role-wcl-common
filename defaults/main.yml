@@ -91,6 +91,6 @@ timezone: "Asia/Shanghai"
 bash_history_size: 10000
 bash_history_format: '%Y-%m-%d %T '
 
-enable_swap: no
+enable_swapfile: no
 swap_size: 2G
-swap_file: /swapfile
+swap_path: /swapfile
