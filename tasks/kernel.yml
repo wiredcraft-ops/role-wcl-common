@@ -2,18 +2,15 @@
 #
 # Apply the limits to the linux system
 #
-
-- name: Check if SELinux exists.
-  command: getenforce > /dev/null 2>&1
-  register: getenforce_status
-  ignore_errors: yes
+- name: Install selinux pything binding just in case...
+  yum:
+    name=libselinux-python
+    state=present
 
 # selinux ansible module haven't been tested on any Debian system according to ansible doc, but it works.
-- name: Change SELinux mode to permissive
+- name: Change SELinux mode to disabled
   selinux:
-    policy=default
-    state=permissive
-  when: getenforce_status.rc == 0
+    state=disabled
 
 # Limits Tunning
 - name: Add ulimit into /etc/init.d/functions 
@@ -46,14 +43,17 @@
     - "{{ common_limits | default([]) }}"
     - "type"
 
-- name: Set kernel values via sysctl
-  sysctl:
-    name="{{ item.key }}"
-    value="{{ item.value }}"
-    state=present
-    reload=yes
-    sysctl_set=no
-  ignore_errors: True
-  with_dict: 
-    common_sysctl
+#
+# CRASH on QC ... to investigate 
+#
+# - name: Set kernel values via sysctl
+#   sysctl:
+#     name="{{ item.key }}"
+#     value="{{ item.value }}"
+#     state=present
+#     reload=yes
+#     sysctl_set=no
+#   ignore_errors: True
+#   with_dict: 
+#     common_sysctl
 
