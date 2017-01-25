@@ -6,6 +6,7 @@
   yum:
     name=libselinux-python
     state=present
+  when: ansible_os_family == 'RedHat'
 
 # selinux ansible module haven't been tested on any Debian system according to ansible doc, but it works.
 - name: Change SELinux mode to disabled
