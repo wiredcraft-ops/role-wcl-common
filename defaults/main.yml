@@ -1,4 +1,15 @@
 ---
+# Define some defaults to choose whether or not to run some of the operations
+# For legacy purpose - enable everything.
+enable_hostname: yes
+enable_packages: yes
+enable_users: yes
+enable_kernel: yes
+enable_git: yes
+enable_ssh: yes
+enable_misc: yes
+
+
 common_git_user_name: User Name
 common_git_user_email: user@example.com
 

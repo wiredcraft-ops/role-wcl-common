@@ -4,11 +4,25 @@
 #
 
 - include: hostname.yml
+  when: enable_hostname
+
 - include: swap.yml
   when: enable_swapfile
+
 - include: packages.yml
+  when: enable_hostname
+
 - include: users.yml
+  when: enable_users
+
 - include: kernel.yml
+  when: enable_kernel
+
 - include: git.yml
+  when: enable_git
+
 - include: ssh.yml
+  when: enable_ssh
+
 - include: miscellaneous.yml
+  when: enable_misc
