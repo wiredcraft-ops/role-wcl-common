@@ -8,11 +8,17 @@ enable_kernel: yes
 enable_git: yes
 enable_ssh: yes
 enable_misc: yes
+enable_swapfile: no
 
-
+# 
+# Git related
+#
 common_git_user_name: User Name
 common_git_user_email: user@example.com
 
+#
+# Packages
+#
 common_packages_redhat:
     - htop
     - sysstat
@@ -31,6 +37,9 @@ common_packages_debian:
     - python-selinux
     - ntp
 
+#
+# Users
+#
 common_users: []
 #    - name: myuser
 #      sudo: yes
@@ -39,6 +48,9 @@ common_users: []
 #          - ssh-rsa AAAAAxxxx
 #          - https://github.com/myuser.keys
 
+#
+# Kernel
+#
 common_limits:
     - name: nofile
       value: 65536
@@ -92,6 +104,9 @@ common_sysctl:
     # net.netfilter.nf_conntrack_generic_timeout : 600
     # net.netfilter.nf_conntrack_checksum : 1
 
+# 
+# Misc
+#
 handle_firewall: false
 disable_firewall: false
 disable_networkmanager: false
@@ -102,6 +117,5 @@ timezone: "Asia/Shanghai"
 bash_history_size: 10000
 bash_history_format: '%Y-%m-%d %T '
 
-enable_swapfile: no
 swap_size: 2G
 swap_path: /swapfile
