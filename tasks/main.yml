@@ -10,7 +10,7 @@
   when: enable_swapfile
 
 - include: packages.yml
-  when: enable_hostname
+  when: enable_packages
 
 - include: users.yml
   when: enable_users
