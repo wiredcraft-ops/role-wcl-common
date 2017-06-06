@@ -2,16 +2,22 @@
 #
 # Apply the limits to the linux system
 #
+- name: Check if selinux is installed
+  stat:
+    path: /etc/selinux/config
+  register: selinux_config
+
 - name: Install selinux pything binding just in case...
   yum:
     name=libselinux-python
     state=present
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat' and selinux_config.stat.exists
 
 # selinux ansible module haven't been tested on any Debian system according to ansible doc, but it works.
 - name: Change SELinux mode to disabled
   selinux:
     state=disabled
+  when: selinux_config.stat.exists
 
 # Limits Tunning
 - name: Add ulimit into /etc/init.d/functions 
