@@ -28,6 +28,7 @@ common_packages_redhat:
     - wget
     - net-tools
     - ntp
+    - bind-utils
 
 common_packages_debian:
     - htop
@@ -36,6 +37,7 @@ common_packages_debian:
     - git
     - python-selinux
     - ntp
+    - dnsutils
 
 #
 # Users
