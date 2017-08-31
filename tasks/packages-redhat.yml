@@ -19,7 +19,7 @@
   yum:
     name: https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-{{ epel_version }}.noarch.rpm
     state: present
-  when: ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_distribution == 'RedHat'
 
 - name: Add required binaries
   yum:
