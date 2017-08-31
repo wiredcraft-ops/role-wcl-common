@@ -121,3 +121,8 @@ bash_history_format: '%Y-%m-%d %T '
 
 swap_size: 2G
 swap_path: /swapfile
+
+#
+# epel
+#
+epel_version: 7-10
