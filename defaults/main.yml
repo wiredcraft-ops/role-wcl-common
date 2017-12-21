@@ -10,7 +10,7 @@ enable_ssh: yes
 enable_misc: yes
 enable_swapfile: no
 
-# 
+#
 # Git related
 #
 common_git_user_name: User Name
@@ -106,7 +106,7 @@ common_sysctl:
     # net.netfilter.nf_conntrack_generic_timeout : 600
     # net.netfilter.nf_conntrack_checksum : 1
 
-# 
+#
 # Misc
 #
 handle_firewall: false
@@ -119,7 +119,7 @@ timezone: "Asia/Shanghai"
 bash_history_size: 10000
 bash_history_format: '%Y-%m-%d %T '
 
-swap_size: 2G
+swap_size: 2048 # 2G
 swap_path: /swapfile
 
 #

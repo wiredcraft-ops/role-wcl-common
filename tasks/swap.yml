@@ -7,7 +7,7 @@
   register: swapfile
 
 - name: Create swap file
-  command: fallocate -l {{ swap_size }} {{ swap_path }}
+  command: dd if=/dev/zero of={{ swap_path }} count={{ swap_size }} bs=1MiB
   when: swapfile.stat.exists == False
 
 - name: Make swap file
