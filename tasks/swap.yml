@@ -10,6 +10,13 @@
   command: dd if=/dev/zero of={{ swap_path }} count={{ swap_size }} bs=1MiB
   when: swapfile.stat.exists == False
 
+- name: Lock down swap file permission
+  file:
+    path: "{{ swap_path }}"
+    owner: root
+    group: root
+    mode: 0600
+
 - name: Make swap file
   command: mkswap {{ swap_path }}
   when: swapfile.stat.exists == False
