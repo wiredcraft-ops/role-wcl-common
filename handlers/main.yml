@@ -10,7 +10,7 @@
   shell: /usr/sbin/sshd -t
   register: result
   changed_when: "result.rc != 0"
-  always_run: yes
+  check_mode: no # https://docs.ansible.com/ansible/latest/user_guide/playbooks_checkmode.html
 
 - name: restart ssh - after config check
   service:
