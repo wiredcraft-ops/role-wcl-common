@@ -20,6 +20,14 @@
     name=ntpd
     state=started
     enabled=true
+  ignore_errors: True
+
+- name: Start NTP Server (RedHat v8)
+  service:
+    name=chronyd
+    state=started
+    enabled=true
+  ignore_errors: True
 
 # Piece of s...
 - name: Stop and disable NetworkManager
