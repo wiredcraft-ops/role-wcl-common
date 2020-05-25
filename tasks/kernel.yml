@@ -7,11 +7,17 @@
     path: /etc/selinux/config
   register: selinux_config
 
-- name: Install selinux pything binding just in case...
+- name: Install selinux pything binding just in case... (not for distro v.8)
   yum:
     name=libselinux-python
     state=present
-  when: ansible_os_family == 'RedHat' and selinux_config.stat.exists
+  when: ansible_os_family == 'RedHat' and selinux_config.stat.exists and ansible_distribution_major_version != '8'
+
+- name: Install selinux pything binding just in case... (for distro v.8)
+  yum:
+    name=python3-libselinux
+    state=present
+  when: ansible_os_family == 'RedHat' and selinux_config.stat.exists and ansible_distribution_major_version == '8'
 
 # selinux ansible module haven't been tested on any Debian system according to ansible doc, but it works.
 - name: Change SELinux mode to disabled
