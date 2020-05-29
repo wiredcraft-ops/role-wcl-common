@@ -13,7 +13,7 @@
 
 - name: Change the timezone
   command: timedatectl set-timezone {{ timezone }}
-  when: timezone != "{{ current_timezone.stat.lnk_source | regex_replace('/usr/share/zoneinfo/', '')}}"
+  when: current_timezone.stat.lnk_source is not defined or timezone != current_timezone.stat.lnk_source | regex_replace('/usr/share/zoneinfo/', '')
 
 - name: Start NTP Server
   service:
