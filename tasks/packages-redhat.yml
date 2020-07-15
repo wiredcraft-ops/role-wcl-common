@@ -21,9 +21,9 @@
     state: present
   when: ansible_distribution == 'RedHat' and ansible_distribution_major_version != '8'
 
-- name: Enable EPEL repository (for distro v.8)
+- name: Enable EPEL repository (for distro v8)
   yum:
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ epel_version }}.noarch.rpm
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
     state: present
   when: ansible_distribution == 'RedHat' and ansible_distribution_major_version == '8'
 
