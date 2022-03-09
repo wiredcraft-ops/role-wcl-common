@@ -26,29 +26,34 @@
   when: selinux_config.stat.exists
 
 # Limits Tunning
-- name: Add ulimit into /etc/init.d/functions 
-  lineinfile: 
+- name: Add ulimit into /etc/init.d/functions
+  lineinfile:
     dest=/etc/init.d/functions
     insertafter='^export PATH'
     line='ulimit -n 65536'
     state=present
   when: ansible_os_family == 'RedHat'
 
-## Haven't been tested yet.
-#- name: Add ulimit into /lib/lsb/init-functions
-#  lineinfile:
-#    dest=/lib/lsb/init-functions
-#    insertafter='^export PATH'
-#    line='ulimit -n 65536'
-#    state=present
-#  when: ansible_os_family == 'Debian'
+# see how to set default limit system-wide for systemd units
+# https://www.freedesktop.org/software/systemd/man/systemd-system.conf.html
+# https://serverfault.com/questions/958760/changing-ulimit-on-systemd
+- name: 'default open file limit for systemd units'
+  template:
+    dest: /etc/systemd/system.conf.d/50-openfile.conf
+    src: systemd_openfile.conf
+    owner: root
+    group: root
+    mode: "0644"
+  when: ansible_os_family == 'Debian'
 
 - name: Enable iptables to load the netfilter module
   command:
     iptables -nvL
 
+# this is for direct login with system
+# see man page of login(1), login.defs(5), limits(5)
 - name: Set kernel limits
-  lineinfile: 
+  lineinfile:
     dest=/etc/security/limits.conf
     line='{{ item.0.user }} {{ item.1 }} {{ item.0.name }} {{ item.0.value }}'
     state=present
@@ -57,7 +62,7 @@
     - "type"
 
 #
-# CRASH on QC ... to investigate 
+# CRASH on QC ... to investigate
 #
 # - name: Set kernel values via sysctl
 #   sysctl:
@@ -67,6 +72,5 @@
 #     reload=yes
 #     sysctl_set=no
 #   ignore_errors: True
-#   with_dict: 
+#   with_dict:
 #     common_sysctl
-
